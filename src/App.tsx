@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
-  return (
+
+    type NumType = 0 |1 | 2 | 3 | 4 | 5
+
+    let [num, setNum] = useState<NumType>(0)
+
+    const onClickIncHandler = (num: NumType) => {
+        if ( num < 5) {
+            num += 1
+        }
+        setNum(num)
+        console.log(num)
+    }
+
+    const onClickResHandler = (num: NumType) => {
+        setNum(0)
+    }
+
+    return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='wrapper'>
+        <div className='counter'>{num}</div>
+        <div className='button-wrapper'>
+            <button className={num === 5 ? 'button disabled' : 'button'} onClick={() => onClickIncHandler(num)}>inc</button>
+            <button className={num === 0 ? 'button disabled' : 'button'} onClick={() => onClickResHandler(num)}>reset</button>
+        </div>
+      </div>
     </div>
   );
 }
